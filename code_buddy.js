@@ -10,10 +10,10 @@ if (Meteor.is_client) {
     
     query.observe({
       added: function(snippet) {
-        highlightSyntax();
+        window.setTimeout(highlightSyntax, 200);
       },
       changed: function(snippet) {
-        highlightSyntax();
+        window.setTimeout(highlightSyntax, 200);
       }
     }); 
 
