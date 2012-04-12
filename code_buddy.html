@@ -5,52 +5,68 @@
 <script src="/scripts/shAutoloader.js" type="text/javascript"></script>
 
 <script type="text/javascript">
+SYNTAXES = [
+'applescript            @shBrushAppleScript.js',
+'actionscript3 as3      @shBrushAS3.js',
+'bash shell             @shBrushBash.js',
+'coldfusion cf          @shBrushColdFusion.js',
+'cpp c                  @shBrushCpp.js',
+'c# c-sharp csharp      @shBrushCSharp.js',
+'css                    @shBrushCss.js',
+'delphi pascal          @shBrushDelphi.js',
+'diff patch pas         @shBrushDiff.js',
+'erl erlang             @shBrushErlang.js',
+'groovy                 @shBrushGroovy.js',
+'java                   @shBrushJava.js',
+'jfx javafx             @shBrushJavaFX.js',
+'js jscript javascript  @shBrushJScript.js',
+'perl pl                @shBrushPerl.js',
+'php                    @shBrushPhp.js',
+'text plain             @shBrushPlain.js',
+'py python              @shBrushPython.js',
+'ruby rails ror rb      @shBrushRuby.js',
+'sass scss              @shBrushSass.js',
+'scala                  @shBrushScala.js',
+'sql                    @shBrushSql.js',
+'vb vbnet               @shBrushVb.js',
+'xml xhtml xslt html    @shBrushXml.js',
+'objc                   @shBrushObjc.js'
+];
+
 function path()
 {
-  var args = arguments,
-      result = []
-      ;
+  var result = [],
+      sorted_syntaxes = SYNTAXES.sort();
        
-  for(var i = 0; i < args.length; i++) {
-    result.push(args[i].replace('@', '/scripts/'));
+  for(var i = 0; i < sorted_syntaxes.length; i++) {
+    result.push(sorted_syntaxes[i].replace('@', '/scripts/'));
   }
 
   return result
 };
 
+function langs(selected_syntax)
+{
+  var result = [];
+       
+  for(var i = 0; i < SYNTAXES.length; i++) {
+    var languages = SYNTAXES[i].split(/\s+/);
+    languages.pop();
+    result.push({id: languages[0], selected: (languages[0] == selected_syntax), display: languages.join(', ')});
+  }
+
+  return result.sort();
+};
+
 
 function highlightSyntax() {
   SyntaxHighlighter.vars.discoveredBrushes = null;
-  SyntaxHighlighter.autoloader.apply(null, path(
-    'applescript            @shBrushAppleScript.js',
-    'actionscript3 as3      @shBrushAS3.js',
-    'bash shell             @shBrushBash.js',
-    'coldfusion cf          @shBrushColdFusion.js',
-    'cpp c                  @shBrushCpp.js',
-    'c# c-sharp csharp      @shBrushCSharp.js',
-    'css                    @shBrushCss.js',
-    'delphi pascal          @shBrushDelphi.js',
-    'diff patch pas         @shBrushDiff.js',
-    'erl erlang             @shBrushErlang.js',
-    'groovy                 @shBrushGroovy.js',
-    'java                   @shBrushJava.js',
-    'jfx javafx             @shBrushJavaFX.js',
-    'js jscript javascript  @shBrushJScript.js',
-    'perl pl                @shBrushPerl.js',
-    'php                    @shBrushPhp.js',
-    'text plain             @shBrushPlain.js',
-    'py python              @shBrushPython.js',
-    'ruby rails ror rb      @shBrushRuby.js',
-    'sass scss              @shBrushSass.js',
-    'scala                  @shBrushScala.js',
-    'sql                    @shBrushSql.js',
-    'vb vbnet               @shBrushVb.js',
-    'xml xhtml xslt html    @shBrushXml.js',
-    'objc                   @shBrushObjc.js'
-  ));
+  SyntaxHighlighter.autoloader.apply(null, path());
 
   SyntaxHighlighter.all();
 }
+
+LANGS = langs();
 
 </script>
   
@@ -84,10 +100,21 @@ function highlightSyntax() {
   <div style="clear: both; margin: 10px; padding: 5px; width: auto; background-color: #D2D3AA; display: none" id="editor">
     <form id="{{_id}}-form">
     <label for="title">Name:</label><input type="text" style="width: 200px" id="{{_id}}-title" name="title" value="{{title}}"/>
-    <label for="syntax">Language:</label><input type="text" id="{{_id}}-syntax" name="syntax" value="{{syntax}}"/>
+    <label for="syntax">Language:</label>
+    
+    {{> languages}}
+    
     <textarea class="boxsizing-border" style="width: 100%" rows="20" id="{{_id}}-code" name="code">{{code}}</textarea>
     </form>
     <input type="button" class="update" value="Update" />
   </div>
   </div>
+</template>
+
+<template name="languages">
+  <select id="{{_id}}-syntax" name="syntax">
+    {{#each langs}}
+      <option value="{{id}}" {{#if selected}}selected="selected"{{/if}}>{{display}}</option>
+    {{/each}}
+  </select>
 </template>
