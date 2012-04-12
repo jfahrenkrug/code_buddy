@@ -1,1 +1,30 @@
 /* CSS declarations go here */
+
+html, body { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+
+div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, pre, a, abbr, acronym, address, code, del, dfn, em, img, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, tbody, tfoot, thead, tr { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+
+th, td, caption { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; text-align: left; font-weight: normal; vertical-align: middle; }
+
+table { margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; border-collapse: separate; border-spacing: 0; vertical-align: middle; }
+
+body { line-height: 1.5; font-family: monospace, sans-serif; color: #333333; font-size: 80%; }
+h1 { font-weight: normal; color: #222222; font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
+p { margin: 0 0 1.5em; }
+strong { font-weight: bold; }
+
+.footnote {
+  
+}
+
+a.swbluelink { text-decoration: none; color: #00b6dd; }
+a.swbluelink:hover { color: black; }
+
+
+
+.boxsizing-border {
+  box-sizing: border-box;
+  -webkit-box-sizing:border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}

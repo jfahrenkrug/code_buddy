@@ -11,42 +11,45 @@ function path()
       result = []
       ;
        
-  for(var i = 0; i < args.length; i++)
-      result.push(args[i].replace('@', '/scripts/'));
-       
+  for(var i = 0; i < args.length; i++) {
+    result.push(args[i].replace('@', '/scripts/'));
+  }
+
   return result
 };
 
-function highlightSyntax() {
-SyntaxHighlighter.autoloader.apply(null, path(
-  'applescript            @shBrushAppleScript.js',
-  'actionscript3 as3      @shBrushAS3.js',
-  'bash shell             @shBrushBash.js',
-  'coldfusion cf          @shBrushColdFusion.js',
-  'cpp c                  @shBrushCpp.js',
-  'c# c-sharp csharp      @shBrushCSharp.js',
-  'css                    @shBrushCss.js',
-  'delphi pascal          @shBrushDelphi.js',
-  'diff patch pas         @shBrushDiff.js',
-  'erl erlang             @shBrushErlang.js',
-  'groovy                 @shBrushGroovy.js',
-  'java                   @shBrushJava.js',
-  'jfx javafx             @shBrushJavaFX.js',
-  'js jscript javascript  @shBrushJScript.js',
-  'perl pl                @shBrushPerl.js',
-  'php                    @shBrushPhp.js',
-  'text plain             @shBrushPlain.js',
-  'py python              @shBrushPython.js',
-  'ruby rails ror rb      @shBrushRuby.js',
-  'sass scss              @shBrushSass.js',
-  'scala                  @shBrushScala.js',
-  'sql                    @shBrushSql.js',
-  'vb vbnet               @shBrushVb.js',
-  'xml xhtml xslt html    @shBrushXml.js',
-  'objc                   @shBrushObjc.js'
-));
 
-SyntaxHighlighter.all();
+function highlightSyntax() {
+  SyntaxHighlighter.vars.discoveredBrushes = null;
+  SyntaxHighlighter.autoloader.apply(null, path(
+    'applescript            @shBrushAppleScript.js',
+    'actionscript3 as3      @shBrushAS3.js',
+    'bash shell             @shBrushBash.js',
+    'coldfusion cf          @shBrushColdFusion.js',
+    'cpp c                  @shBrushCpp.js',
+    'c# c-sharp csharp      @shBrushCSharp.js',
+    'css                    @shBrushCss.js',
+    'delphi pascal          @shBrushDelphi.js',
+    'diff patch pas         @shBrushDiff.js',
+    'erl erlang             @shBrushErlang.js',
+    'groovy                 @shBrushGroovy.js',
+    'java                   @shBrushJava.js',
+    'jfx javafx             @shBrushJavaFX.js',
+    'js jscript javascript  @shBrushJScript.js',
+    'perl pl                @shBrushPerl.js',
+    'php                    @shBrushPhp.js',
+    'text plain             @shBrushPlain.js',
+    'py python              @shBrushPython.js',
+    'ruby rails ror rb      @shBrushRuby.js',
+    'sass scss              @shBrushSass.js',
+    'scala                  @shBrushScala.js',
+    'sql                    @shBrushSql.js',
+    'vb vbnet               @shBrushVb.js',
+    'xml xhtml xslt html    @shBrushXml.js',
+    'objc                   @shBrushObjc.js'
+  ));
+
+  SyntaxHighlighter.all();
 }
 
 </script>
@@ -67,19 +70,24 @@ SyntaxHighlighter.all();
 
 <template name="snippet">
   <div style="margin: 10px">
-  <h1>{{title}}</h1>
-  <pre class="brush: {{syntax}}">
+    <h1>{{title}}</h1>
+    <pre class="brush: {{syntax}}">
 {{code}}
-  </pre>
-  <div><input type="button" class="highlight" value="Highlight Syntax"/></div>
-  <div style="margin-top: 25px; padding: 5px; width: 100%; background-color: #D2D3AA">
+    </pre>
+    <hr/>
+    <div style="margin-top: 10px; width: 100px; float: left"><input type="button" class="edit" id="edit-button" value="Show Editor"/></div>
+    <div style="margin-top: 10px; margin-left: 20px; float: left; width: 700px; overflow: hidden; white-space: nowrap">
+      Code Buddy, 2012 by <a href="http://www.springenwerk.com" class="swbluelink">Johannes Fahrenkrug</a>. Code on <a href="http://github.com/jfahrenkrug/code_buddy" class="swbluelink">Github</a>. Follow me on <a href="http://twitter.com/jfahrenkrug" class="swbluelink">Twitter</a>.
+    </div>
+  </div>
+  
+  <div style="clear: both; margin: 10px; padding: 5px; width: auto; background-color: #D2D3AA; display: none" id="editor">
     <form id="{{_id}}-form">
-    <input style="display:block" type="text" id="{{_id}}-title" name="title" value="{{title}}"/>
-    <input style="display:block" type="text" id="{{_id}}-syntax" name="syntax" value="{{syntax}}"/>
-    <textarea style="width: 80%" rows="20" id="{{_id}}-code" name="code">{{code}}</textarea>
+    <label for="title">Name:</label><input type="text" style="width: 200px" id="{{_id}}-title" name="title" value="{{title}}"/>
+    <label for="syntax">Language:</label><input type="text" id="{{_id}}-syntax" name="syntax" value="{{syntax}}"/>
+    <textarea class="boxsizing-border" style="width: 100%" rows="20" id="{{_id}}-code" name="code">{{code}}</textarea>
     </form>
     <input type="button" class="update" value="Update" />
-  </div>
   </div>
   </div>
 </template>

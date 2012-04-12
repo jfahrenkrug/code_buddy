@@ -27,8 +27,13 @@ if (Meteor.is_client) {
                                        syntax: $('#' + this._id + '-syntax').val()}});
     },
 
-    'click input.highlight': function() {
-      highlightSyntax();
+    'click input.edit': function() {
+      $('#editor').toggle();
+      if ($('#editor').is(":visible")) {
+        $('#edit-button').val("Hide Editor");
+      } else {
+        $('#edit-button').val("Show Editor");
+      }
     }
   };
 
